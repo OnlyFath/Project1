@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achmad Fathir Muzakky - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #121212 0%, #1E1E2E 100%);
+            color: #E0E0E0;
+            line-height: 1.8;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        nav {
+            background: rgba(30, 30, 46, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #2A2A3E 0%, #1E1E2E 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #E0E0E0;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(135deg, #3A3A4E 0%, #2E2E3E 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(138, 180, 248, 0.3);
+            border-color: rgba(138, 180, 248, 0.5);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            border-color: #667EEA;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 2rem;
+        }
+
+        section {
+            display: none;
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
+            min-height: 70vh;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #B8B8D1;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .hero-emoji {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #2A2A3E 0%, #1E1E2E 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-emoji {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #667EEA;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #B8B8D1;
+            position: relative;
+            z-index: 1;
+            text-align: left;
+        }
+
+        .skill-item {
+            background: linear-gradient(135deg, #2A2A3E 0%, #1E1E2E 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667EEA;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .skill-emoji {
+            font-size: 2rem;
+        }
+
+        .skill-title {
+            font-size: 1.3rem;
+            color: #667EEA;
+            font-weight: 600;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            background: linear-gradient(135deg, #2A2A3E 0%, #1E1E2E 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .contact-emoji {
+            font-size: 2.5rem;
+        }
+
+        .contact-item a {
+            color: #667EEA;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #764BA2;
+        }
+
+        footer {
+            background: rgba(30, 30, 46, 0.95);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 4rem;
+        }
+
+        footer p {
+            margin: 0;
+            color: #B8B8D1;
+            font-size: 0.95rem;
+        }
+
+        .highlight {
+            color: #667EEA;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero-emoji {
+                font-size: 4rem;
+            }
+
+            .nav-container {
+                gap: 0.5rem;
+            }
+
+            .nav-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            main {
+                margin-top: 140px;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="showPage('home')">🏠 Home</button>
+            <button class="nav-btn" onclick="showPage('about')">👤 About</button>
+            <button class="nav-btn" onclick="showPage('projects')">💼 Projects</button>
+            <button class="nav-btn" onclick="showPage('skills')">🧠 Skills</button>
+            <button class="nav-btn" onclick="showPage('contact')">✉ Contact</button>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="active">
+            <div class="hero-section">
+                <span class="hero-emoji">👨‍💻</span>
+                <h1>Achmad Fathir Muzakky</h1>
+                <h2>Mahasiswa Informatika | Universitas Trunojoyo Madura</h2>
+            </div>
+            <p>Halo! Perkenalkan, nama saya <span class="highlight">Achmad Fathir Muzakky</span>, seorang mahasiswa semester 1 di Program Studi Teknik Informatika, Universitas Trunojoyo Madura. Saya memilih jurusan ini karena sejak kecil saya selalu terpesona dengan bagaimana teknologi dapat mengubah cara kita hidup, berkomunikasi, dan menyelesaikan masalah kompleks menjadi lebih sederhana.</p>
+            
+            <p>Di era digital seperti sekarang, saya percaya bahwa teknologi bukan hanya tentang kode dan algoritma, tetapi tentang menciptakan solusi yang membawa dampak nyata bagi kehidupan orang banyak. Motivasi terbesar saya adalah terus belajar dan mengembangkan kemampuan di bidang <span class="highlight">pengembangan web, pemrograman, dan teknologi informasi</span> secara umum.</p>
+            
+            <p>Sebagai mahasiswa baru, saya menyadari bahwa perjalanan saya masih sangat panjang. Namun, saya bertekad untuk memanfaatkan setiap kesempatan belajar, baik di dalam maupun di luar kampus. Saya ingin menjadi seorang <span class="highlight">full-stack developer</span> yang tidak hanya mahir secara teknis, tetapi juga memahami kebutuhan pengguna dan mampu menciptakan pengalaman digital yang bermakna.</p>
+            
+            <p>Cita-cita saya adalah berkontribusi dalam dunia teknologi dengan menciptakan aplikasi dan sistem yang inovatif, serta membantu mendorong transformasi digital di Indonesia, khususnya di daerah saya, Madura. Saya yakin dengan dedikasi, kerja keras, dan semangat belajar yang tinggi, semua impian itu akan tercapai.</p>
+        </section>
+
+        <section id="about">
+            <h1>👤 Tentang Saya</h1>
+            <p>Saya lahir dan besar di <span class="highlight">Bangkalan, Madura</span>, sebuah pulau dengan budaya yang kaya dan masyarakat yang kuat dalam mempertahankan tradisi. Namun, di tengah tradisi itu, saya selalu tertarik pada hal-hal modern, khususnya teknologi. Sejak SMP, saya sudah mulai penasaran bagaimana sebuah website bisa berfungsi dan bagaimana aplikasi di smartphone dibuat.</p>
+            
+            <p>Perjalanan pendidikan saya dimulai dari SD hingga SMA di Bangkalan, di mana saya aktif dalam berbagai kegiatan akademik dan non-akademik. Saat SMA, saya mulai mempelajari dasar-dasar pemrograman secara otodidak melalui internet. Dari situ, saya semakin yakin bahwa <span class="highlight">dunia teknologi adalah tempat di mana saya ingin berkarir</span>.</p>
+            
+            <p>Alasan utama saya ingin mengembangkan diri di bidang ini adalah karena saya percaya bahwa teknologi memiliki kekuatan untuk mengubah segalanya. Dari cara kita belajar, bekerja, hingga cara kita berinteraksi dengan dunia. Saya ingin menjadi bagian dari perubahan itu. Saya ingin menciptakan sesuatu yang tidak hanya berguna, tetapi juga inspiratif.</p>
+            
+            <p>Pandangan saya tentang dunia teknologi sangat optimis. Saya melihat teknologi sebagai alat demokratisasi—siapa pun dengan akses internet dan kemauan belajar bisa mengubah hidupnya. Sebagai mahasiswa dari daerah, saya ingin membuktikan bahwa <span class="highlight">latar belakang bukan penghalang untuk meraih kesuksesan di dunia digital</span>. Yang penting adalah semangat, ketekunan, dan keinginan terus berkembang.</p>
+            
+            <p>Saat ini, fokus saya adalah membangun fondasi yang kuat di bidang pemrograman, memahami konsep-konsep dasar ilmu komputer, dan mengeksplorasi berbagai teknologi terbaru. Saya juga aktif mencari peluang untuk belajar dari orang-orang yang lebih berpengalaman, mengikuti komunitas teknologi, dan terlibat dalam proyek-proyek yang menantang.</p>
+        </section>
+
+        <section id="projects">
+            <h1>💼 Projects</h1>
+            <p>Meskipun masih di semester awal, saya sudah mulai mengeksplorasi berbagai proyek dan ide sederhana untuk mengasah kemampuan saya. Berikut adalah beberapa proyek dan konsep yang sedang atau pernah saya kerjakan:</p>
+            
+            <div class="cards-container">
+                <div class="card">
+                    <span class="card-emoji">💡</span>
+                    <h3>Website Portofolio Pribadi</h3>
+                    <p>Proyek pertama saya adalah membuat website portofolio pribadi ini sebagai media untuk memperkenalkan diri dan menampilkan karya-karya saya. Website ini dibuat menggunakan HTML, CSS, dan JavaScript murni tanpa framework, sebagai latihan memahami dasar-dasar web development.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-emoji">🧩</span>
+                    <h3>Kalkulator Interaktif</h3>
+                    <p>Saya membuat aplikasi kalkulator sederhana dengan antarmuka yang menarik menggunakan JavaScript. Proyek ini membantu saya memahami logika pemrograman, manipulasi DOM, dan event handling. Meskipun sederhana, ini adalah langkah penting dalam perjalanan belajar saya.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-emoji">💻</span>
+                    <h3>Landing Page Responsif</h3>
+                    <p>Membuat beberapa landing page dengan desain responsif untuk berbagai ukuran layar. Proyek ini mengajarkan saya tentang prinsip-prinsip desain UI/UX, penggunaan CSS Grid dan Flexbox, serta pentingnya mobile-first design dalam pengembangan web modern.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-emoji">📝</span>
+                    <h3>To-Do List Application</h3>
+                    <p>Aplikasi manajemen tugas sederhana yang memungkinkan pengguna menambah, mengedit, dan menghapus daftar kegiatan. Proyek ini membantu saya memahami konsep CRUD (Create, Read, Update, Delete) dan penyimpanan data lokal menggunakan JavaScript.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-emoji">🎨</span>
+                    <h3>Eksplorasi UI/UX Design</h3>
+                    <p>Saya sedang mempelajari prinsip-prinsip desain antarmuka pengguna yang baik. Melalui eksperimen dengan berbagai layout, color scheme, dan typography, saya belajar bagaimana menciptakan pengalaman pengguna yang intuitif dan menyenangkan.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h1>🧠 Skills & Kemampuan</h1>
+            <p>Sebagai mahasiswa semester 1, saya terus mengembangkan berbagai keterampilan yang relevan dengan dunia teknologi. Berikut adalah beberapa bidang yang sedang saya tekuni:</p>
+            
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-emoji">💻</span>
+                    <span class="skill-title">Programming & Coding</span>
+                </div>
+                <p>Saya sedang mempelajari dasar-dasar pemrograman dengan fokus pada bahasa seperti Python, JavaScript, dan C++. Pemahaman tentang logika pemrograman, struktur data, dan algoritma adalah fondasi yang saya bangun saat ini. Saya percaya bahwa kemampuan coding yang kuat adalah kunci untuk menjadi developer yang handal.</p>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-emoji">🌐</span>
+                    <span class="skill-title">Web Development</span>
+                </div>
+                <p>Web development adalah passion saya. Saya aktif belajar HTML5, CSS3, dan JavaScript untuk front-end development. Saya juga mulai mengeksplorasi konsep back-end dan bagaimana aplikasi web bekerja secara keseluruhan. Tujuan saya adalah menjadi full-stack developer yang mampu membangun aplikasi web dari nol hingga deployment.</p>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-emoji">🎨</span>
+                    <span class="skill-title">UI/UX Design</span>
+                </div>
+                <p>Saya memahami bahwa teknologi tidak hanya tentang fungsi, tetapi juga tentang bentuk. Desain antarmuka yang baik dapat membuat perbedaan besar dalam pengalaman pengguna. Saya belajar prinsip-prinsip desain, teori warna, tipografi, dan bagaimana menciptakan interface yang user-friendly dan estetis.</p>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-emoji">⚙</span>
+                    <span class="skill-title">Network & System</span>
+                </div>
+                <p>Sebagai mahasiswa informatika, saya juga mempelajari dasar-dasar jaringan komputer dan sistem operasi. Memahami bagaimana data bergerak di internet dan bagaimana sistem komputer bekerja adalah pengetahuan fundamental yang akan sangat berguna dalam karir teknologi saya ke depan.</p>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-emoji">📊</span>
+                    <span class="skill-title">Data Handling & Analysis</span>
+                </div>
+                <p>Di era big data, kemampuan mengelola dan menganalisis data menjadi sangat penting. Saya mulai belajar tentang database, SQL, dan konsep dasar data science. Saya tertarik bagaimana data dapat diubah menjadi insight yang valuable untuk pengambilan keputusan.</p>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h1>✉ Contact Me</h1>
+            <p>Saya sangat terbuka untuk berkolaborasi, berdiskusi, atau sekadar bertukar pikiran tentang teknologi dan pengembangan web. Jika Anda ingin menghubungi saya untuk proyek, kesempatan belajar, atau sekadar ingin berbagi pengalaman, jangan ragu untuk menghubungi saya melalui berbagai platform berikut:</p>
+            
+            <div class="contact-links">
+                <div class="contact-item">
+                    <span class="contact-emoji">📧</span>
+                    <div>
+                        <strong>Email</strong><br>
+                        <a href="mailto:fathirjihan5@gmail.com">fathir123@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-emoji">💼</span>
+                    <div>
+                        <strong>LinkedIn</strong><br>
+                        <a href="https://linkedin.com/in/fathirmuzakky" target="_blank">linkedin.com/in/fathirmuzakky</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-emoji">💻</span>
+                    <div>
+                        <strong>GitHub</strong><br>
+                        <a href="https://github.com/OnlyFath" target="_blank">github.com/fathirmuzakky</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-emoji">📱</span>
+                    <div>
+                        <strong>Instagram</strong><br>
+                        <a href="https://instagram.com/fathir.mzk" target="_blank">@fathir.mzk</a>
+                    </div>
+                </div>
+            </div>
+
+            <p style="margin-top: 2rem;">Saya percaya bahwa <span class="highlight">networking dan kolaborasi</span> adalah kunci sukses di dunia teknologi. Mari kita terhubung dan berkembang bersama!</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Achmad Fathir Muzakky. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            const sections = document.querySelectorAll('section');
+            const buttons = document.querySelectorAll('.nav-btn');
+            
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(pageId).classList.add('active');
+            event.target.classList.add('active');
+            
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
